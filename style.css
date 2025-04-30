@@ -1,4 +1,7 @@
+/*NOTE: Desaconselho mexer nas variáveis */
+
 :root {
+    /* Cores Light Mode (padrão) */
     --primary: #4a89dc;
     --primary-light: #5d9cec;
     --primary-lighter: #e6f0fd;
@@ -9,9 +12,31 @@
     --success: #8cc152;
     --warning: #f6bb42;
     --error: #da4453;
+    
+    /* Cores de fundo e texto */
+    --bg-color: #f5f7fa;
+    --text-color: #2c3e50;
+    --header-bg: #ffffff;
+    --card-bg: #ffffff;
+    --footer-bg: #2c3e50;
+    
+    /* Outras variáveis */
     --transition: all 0.3s ease;
     --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     --radius: 8px;
+}
+
+[data-theme="dark"] {
+    /* Cores Dark Mode */
+    --bg-color: #000000;
+    --text-color: #e6e6e6;
+    --header-bg: #16213e;
+    --card-bg: #0b1430;
+    --footer-bg: #05162b;
+    --dark: #e6e6e6;
+    --light: #000000;
+    --primary-lighter: #071c36;
+    --secondary: #042852;
 }
 
 * {
@@ -22,8 +47,9 @@
 }
 
 body {
-    background-color: var(--light);
-    color: var(--dark);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
     line-height: 1.6;
 }
 
@@ -35,12 +61,13 @@ body {
 
 /* Header */
 header {
-    background-color: var(--white);
+    background-color: var(--header-bg);
     box-shadow: var(--shadow);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    transition: background-color 0.3s ease;
 }
 
 nav {
@@ -60,7 +87,7 @@ nav {
 
 .logo i {
     margin-right: 10px;
-    color: var(--secondary);
+    color: #3bafda;
 }
 
 .nav-links {
@@ -74,13 +101,18 @@ nav {
 
 .nav-links a {
     text-decoration: none;
-    color: var(--dark);
+    color: var(--text-color);
     font-weight: 500;
     transition: var(--transition);
 }
 
 .nav-links a:hover {
     color: var(--primary);
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
 }
 
 .btn {
@@ -112,10 +144,27 @@ nav {
     color: var(--white);
 }
 
-/* Inicial */
+/* Estilo do botão de tema */
+.theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.theme-toggle:hover {
+    color: var(--primary);
+}
+
+/* Hero Section */
 .hero {
     padding: 150px 0 80px;
-    background: linear-gradient(135deg, var(--primary-lighter) 0%, var(--white) 100%);
+    background: linear-gradient(135deg, var(--primary-lighter) 0%, var(--card-bg) 100%);
+    transition: 0.3s ease;
 }
 
 .hero-content {
@@ -132,13 +181,13 @@ nav {
 .hero-text h1 {
     font-size: 48px;
     margin-bottom: 20px;
-    color: var(--dark);
+    color: var(--text-color);
 }
 
 .hero-text p {
     font-size: 18px;
     margin-bottom: 30px;
-    color: #555;
+    color: var(--text-color);
 }
 
 .hero-buttons {
@@ -158,10 +207,10 @@ nav {
     box-shadow: var(--shadow);
 }
 
-/* Features */
+/* Features Section */
 .features {
-    padding: 60px 0;
-    background-color: var(--white);
+    padding: 80px 0;
+    background-color: var(--card-bg);
 }
 
 .section-title {
@@ -171,14 +220,15 @@ nav {
 
 .section-title h2 {
     font-size: 36px;
-    color: var(--dark);
+    color: var(--text-color);
     margin-bottom: 15px;
 }
 
 .section-title p {
-    color: #666;
+    color: var(--text-color);
     max-width: 700px;
     margin: 0 auto;
+    opacity: 0.8;
 }
 
 .features-grid {
@@ -188,7 +238,7 @@ nav {
 }
 
 .feature-card {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     padding: 30px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -209,20 +259,25 @@ nav {
 .feature-card h3 {
     font-size: 22px;
     margin-bottom: 15px;
-    color: var(--dark);
+    color: var(--text-color);
 }
 
-/* Chatbot */
+.feature-card p {
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/* Chatbot Section */
 .chatbot-section {
-    padding: 10px 0;
-    background-color: var(--white);
+    padding: 80px 0;
+    background-color: var(--card-bg);
 }
 
 .chatbot-content {
     display: flex;
     align-items: center;
-    gap: 1px;
-    margin-top: 2px;
+    gap: 50px;
+    margin-top: 50px;
 }
 
 .chatbot-image {
@@ -231,7 +286,8 @@ nav {
 
 .chatbot-image img {
     width: 100%;
-
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
 }
 
 .chatbot-features {
@@ -253,19 +309,15 @@ nav {
 
 .chatbot-features .feature-text h3 {
     margin-bottom: 10px;
-    color: var(--dark);
+    color: var(--text-color);
 }
 
-@media (max-width: 200px) {
-    .chatbot-content {
-        flex-direction: column;
-    }
-    
-
+.chatbot-features .feature-text p {
+    color: var(--text-color);
+    opacity: 0.8;
 }
 
-
-/* Como funciona */
+/* Como funciona Section */
 .como-funciona {
     padding: 80px 0;
     background-color: var(--primary-lighter);
@@ -303,7 +355,12 @@ nav {
 
 .step h3 {
     margin-bottom: 15px;
-    color: var(--dark);
+    color: var(--text-color);
+}
+
+.step p {
+    color: var(--text-color);
+    opacity: 0.8;
 }
 
 .step:not(:last-child)::after {
@@ -316,10 +373,10 @@ nav {
     background-color: var(--primary);
 }
 
-/* CTA */
+/* CTA Section */
 .cta {
     padding: 80px 0;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    background: var(--secondary);
     color: var(--white);
     text-align: center;
 }
@@ -329,31 +386,10 @@ nav {
     margin-bottom: 20px;
 }
 
-.cta p {
-    max-width: 700px;
-    margin: 0 auto 30px;
-    font-size: 18px;
-}
-
-.cta .btn {
-    background-color: var(--white);
-    color: var(--primary);
-    font-size: 18px;
-    padding: 15px 40px;
-}
-
-.cta .btn:hover {
-    background-color: var(--primary-lighter);
-}
-
-/* Sobre nós */
+/* Sobre nós Section */
 .sobre-nos {
     padding: 80px 0;
-    background-color: var(--white);
-}
-
-.sobre-nos-header {
-    text-align: center;
+    background-color: var(--card-bg);
 }
 
 .sobre-nos-grid {
@@ -364,7 +400,7 @@ nav {
 }
 
 .sobre-nos-card {
-    background-color: var(--white);
+    background-color: var(--card-bg);
     padding: 30px;
     border-radius: var(--radius);
     box-shadow: var(--shadow);
@@ -379,12 +415,6 @@ nav {
     top: 10px;
     left: 20px;
     line-height: 1;
-}
-
-.sobre-nos-content {
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
 }
 
 .sobre-nos-author {
@@ -408,17 +438,27 @@ nav {
 
 .author-info h4 {
     margin-bottom: 5px;
-    color: var(--dark);
+    color: var(--text-color);
 }
 
 .author-info p {
-    color: #777;
+    color: var(--text-color);
+    opacity: 0.8;
     font-size: 14px;
+}
+
+.author-info a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.author-info a:hover {
+    text-decoration: underline;
 }
 
 /* Footer */
 footer {
-    background-color: var(--dark);
+    background-color: var(--footer-bg);
     color: var(--white);
     padding: 60px 0 20px;
 }
@@ -433,7 +473,6 @@ footer {
 .footer-column h3 {
     font-size: 20px;
     margin-bottom: 20px;
-    color: var(--white);
 }
 
 .footer-links {
@@ -454,25 +493,10 @@ footer {
     color: var(--white);
 }
 
-.social-links {
-    display: flex;
-    gap: 15px;
-}
-
-.social-links a {
-    color: var(--white);
-    background-color: rgba(255, 255, 255, 0.1);
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition);
-}
-
-.social-links a:hover {
-    background-color: var(--primary);
+.footer-links i {
+    margin-right: 8px;
+    width: 20px;
+    text-align: center;
 }
 
 .footer-bottom {
@@ -483,7 +507,7 @@ footer {
     font-size: 14px;
 }
 
-/* Responsive */
+/* Responsividade */
 @media (max-width: 768px) {
     .hero-content {
         flex-direction: column;
@@ -505,9 +529,18 @@ footer {
     
     .step {
         min-width: 100%;
+        margin-bottom: 40px;
+    }
+    
+    .chatbot-content {
+        flex-direction: column;
     }
     
     .nav-links {
         display: none;
+    }
+    
+    .hero {
+        padding-top: 120px;
     }
 }
